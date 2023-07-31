@@ -15,38 +15,7 @@ export default function Index() {
   return (
     <>
       <GoogleOAuthProvider clientId={clientId}>
-        <GoogleLogin
-          onSuccess={(res) => {
-            axios
-              .post(
-                "http://10.10.98.60:5000/GoogleLogin/userInfo",
-                {
-                  credential: jwtDecode(res.credential),
-                },
-                {
-                  headers: {},
-                }
-              )
-              .then((res) => {
-                console.log(res);
-                // if (res.status === 200) {
-                //   navigate("/main", {
-                //     state: {
-                //       value: true,
-                //       name: res.data,
-                //     },
-                //   });
-                // }
-              })
-              .catch((error) => {
-                console.log(error);
-                toast.error("로그인을 실패했습니다.");
-              });
-          }}
-          onFailure={(err) => {
-            console.error(err);
-          }}
-        />
+        <a href="http://10.10.98.60:5000/GoogleLogin">asas</a>
       </GoogleOAuthProvider>
       <ToastContainer
         position="top-center"
@@ -64,3 +33,28 @@ export default function Index() {
     </>
   );
 }
+
+// onSuccess={(res) => {
+//   axios
+//     .post(
+//       "http://10.10.98.60:5000/GoogleLogin/userInfo",
+//       {
+//         credential: jwtDecode(res.credential),
+//       },
+//       {
+//         headers: {},
+//       }
+//     )
+//     .then((res) => {
+//       console.log(res);
+//       if (res.status === 200) {
+//       }
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//       toast.error("로그인을 실패했습니다.");
+//     });
+// }}
+// onFailure={(err) => {
+//   console.error(err);
+// }}
