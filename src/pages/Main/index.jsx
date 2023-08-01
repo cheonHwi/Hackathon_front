@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
-import { Wrap, Container, Circle } from "./style";
+import { Wrap, Container } from "./style";
+import Circle from "../../components/Circle";
+import Navigation from "../../components/Navigation";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Index() {
@@ -15,7 +17,9 @@ export default function Index() {
   return (
     <Wrap>
       <Circle />
-      <Container>asdasdasd</Container>
+      <Container>
+        <Navigation />
+      </Container>
     </Wrap>
   );
 }
