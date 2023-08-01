@@ -22,6 +22,6 @@ export const Circle = styled.div`
   position: absolute;
   width: 100%;
   height: 100vh;
-  animation: ${CircleHeight} 1s forwards;
+  animation: ${CircleHeight} 1s forwards ease;
   background-color: #9961e6;
 `;

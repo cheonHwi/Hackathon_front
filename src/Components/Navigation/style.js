@@ -14,8 +14,14 @@ export const Wrap = styled.div`
   background-color: #fff;
 `;
 
-export const NMap = styled.img``;
+export const NMap = styled.img`
+  width: 25px;
+`;
 
-export const NHome = styled.img``;
+export const NHome = styled.img`
+  width: 30px;
+`;
 
-export const NRank = styled.img``;
+export const NRank = styled.img`
+  width: 25px;
+`;
