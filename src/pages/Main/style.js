@@ -40,11 +40,17 @@ export const LoginContainer = styled.div`
     padding-bottom: 5px;
     color: #fff;
     font-size: 25px;
+    @media (max-width: 280px) {
+      font-size: 20px;
+    }
   }
   > p {
     font-size: 24px;
     font-weight: 800;
     color: #fff;
+    @media (max-width: 280px) {
+      font-size: 20px;
+    }
   }
 `;
 
@@ -61,6 +67,9 @@ export const LoginLink = styled.a`
     height: 2px;
     background-color: #fff;
   }
+  @media (max-width: 280px) {
+    font-size: 20px;
+  }
 `;
 
 export const LoginArrow = styled.img`
@@ -74,6 +83,14 @@ export const RadarGrap = styled.div`
   border-radius: 4vh;
   background-color: #fff;
   text-align: center;
+  @media (max-height: 750px) {
+    margin: 40px 0 30px 0;
+    height: 200px;
+  }
+  @media (max-width: 280px) {
+    margin: 30px 0 15px 0;
+    height: 200px;
+  }
 `;
 
 export const Diet = styled.div`

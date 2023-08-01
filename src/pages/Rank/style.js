@@ -39,16 +39,29 @@ export const Header = styled.div`
   > h2 {
     color: #fff;
     font-size: 20px;
+    @media (max-width: 280px) {
+      font-size: 16px;
+    }
   }
 `;
 
 export const ConentBox = styled.div`
   margin-top: 30px;
+  padding: 10px 20px;
   width: 100%;
   height: 150px;
-  text-align: center;
   border-radius: 4vh;
   background-color: #fff;
+
+  > p {
+    padding-bottom: 5px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  @media (max-height: 750px) {
+    margin-top: 15px;
+    height: 120px;
+  }
 `;
 
 export const Message = styled.p`

@@ -10,9 +10,9 @@ import {
   Diet,
   Discharge,
 } from "./style";
-import Circle from "../../components/Circle";
+import Circle from "../../Components/Circle";
 import Arrow from "../../assets/images/arrow.png";
-import Navigation from "../../components/Navigation";
+import Navigation from "../../Components/Nav";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Cookies } from "react-cookie";

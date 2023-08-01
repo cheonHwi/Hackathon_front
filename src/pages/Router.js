@@ -2,7 +2,7 @@ import { isBrowser } from "react-device-detect";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
-import GlobalStyle from "../components/GlobalStyle";
+import GlobalStyle from "../Components/GlobalStyle";
 import Kira from "./Kira";
 import Tutorial from "./Tutorial";
 import Main from "./Main";
@@ -22,6 +22,17 @@ export default function Router() {
         {isBrowser ? (
           <BrowserRouter>
             <Routes>
+              <Route path="/" element={<p>pc 환경입니다</p>} />
+              {/* <Route path="/tutorial" element={<Tutorial />} />
+          <Route path="/main" element={<Main />} />
+          <Route path="/sub" element={<Sub />} />
+          <Route path="/map" element={<Map />} />
+          <Route path="/rank" element={<Rank />} /> */}
+            </Routes>
+          </BrowserRouter>
+        ) : (
+          <BrowserRouter>
+            <Routes>
               <Route path="/" element={<Kira />} />
               <Route path="/tutorial" element={<Tutorial />} />
               <Route path="/main" element={<Main />} />
@@ -30,17 +41,6 @@ export default function Router() {
               <Route path="/map" element={<Map />} />
               <Route path="/rank" element={<Rank />} />
               <Route path="/*" element={<div />} />
-            </Routes>
-          </BrowserRouter>
-        ) : (
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<p>pc 환경입니다</p>} />
-              {/* <Route path="/tutorial" element={<Tutorial />} />
-            <Route path="/main" element={<Main />} />
-            <Route path="/sub" element={<Sub />} />
-            <Route path="/map" element={<Map />} />
-            <Route path="/rank" element={<Rank />} /> */}
             </Routes>
           </BrowserRouter>
         )}

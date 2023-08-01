@@ -41,3 +41,84 @@ export const Header = styled.div`
     font-size: 20px;
   }
 `;
+
+export const List = styled.div`
+  margin: 30px 0 70px 0;
+  padding: 15px 20px;
+  width: 100%;
+  height: 150px;
+  background-color: #fff;
+  border-radius: 4vh;
+
+  > p {
+    padding-bottom: 15px;
+    font-size: 15px;
+    font-weight: 600;
+
+    @media (max-height: 750px) {
+      padding-bottom: 8px;
+    }
+  }
+
+  > ul {
+    > li {
+      list-style: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding-bottom: 5px;
+      @media (max-height: 750px) {
+        font-size: 14px;
+      }
+    }
+  }
+
+  @media (max-height: 750px) {
+    margin: 40px 0 15px 0;
+    height: 120px;
+  }
+  @media (max-width: 280px) {
+    margin: 20px 0 15px 0;
+    height: 120px;
+  }
+`;
+
+export const Site = styled.span`
+  padding-right: 5px;
+  font-weight: bold;
+`;
+
+export const Belong = styled.span`
+  color: ${(props) => props.color};
+`;
+
+export const Map = styled.div`
+  padding: 10px 20px;
+  width: 100%;
+  height: 300px;
+  background-color: #fff;
+  border-radius: 4vh;
+
+  > p {
+    padding-bottom: 5px;
+    font-size: 15px;
+    font-weight: 600;
+
+    @media (max-height: 750px) {
+      padding-bottom: 8px;
+    }
+  }
+
+  > img {
+    width: 100%;
+    height: 250px;
+
+    @media (max-height: 750px) {
+      height: 200px;
+    }
+  }
+
+  @media (max-height: 750px) {
+    height: 250px;
+  }
+`;
