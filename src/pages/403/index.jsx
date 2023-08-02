@@ -25,7 +25,7 @@ export default function Index() {
           <Message>접근이 금지된 페이지에요</Message>
           <Message>로고를 눌러 처음으로 돌아가세요</Message>
         </div>
-        <Navigation error={"error"} />
+        <Navigation check={"check"} />
       </Container>
     </Wrap>
   );

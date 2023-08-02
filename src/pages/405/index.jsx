@@ -25,7 +25,7 @@ export default function Index() {
           <Message>허용되지 않는 요청이에요</Message>
           <Message>로고를 눌러 처음으로 돌아가세요</Message>
         </div>
-        <Navigation error={"error"} />
+        <Navigation check={"check"} />
       </Container>
     </Wrap>
   );

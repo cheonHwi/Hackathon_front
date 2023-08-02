@@ -22,29 +22,42 @@ export const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
-
   > form {
-    padding: 0 20px;
     position: absolute;
     bottom: 150px;
-    left: 50%;
-    transform: translate(-50%);
-    width: 100%;
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+    > input[type="file"] {
+      display: none;
+    }
+
+    > label.upload-button {
+      padding: 15px;
+      width: 200px;
+      height: 60px;
+      display: inline-block;
+      background-color: #fff;
+      cursor: pointer;
+      text-align: center;
+      color: #4f4f4f;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 800;
+      border-radius: 4vh;
+    }
+
+    > .upload-container {
+      text-align: center;
+    }
   }
 `;
 
 export const Header = styled.div`
-  margin-top: 50px;
+  margin-top: 100px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   > h1 {
     padding-bottom: 5px;
     color: #fff;
@@ -61,17 +74,6 @@ export const Label = styled.label`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  > p {
-    font-size: 15px;
-    font-weight: 600;
-    color: #4e4e4e;
-  }
-  > select {
-    font-size: 15px;
-    font-weight: 600;
-    text-align: center;
-    border: none;
-  }
   > input {
     position: relative;
     font-size: 15px;
@@ -93,12 +95,11 @@ export const Label = styled.label`
 
 export const SubmitBtn = styled.input`
   margin-top: 10px;
-  width: 200px;
-  height: 60px;
-  font-size: 24px;
-  font-weight: 800;
-  border-radius: 4vh;
-  border: none;
-  color: #4f4f4f;
-  background-color: #fff;
+  /* width: 200px; */
+  /* height: 60px; */
+  /* font-size: 24px; */
+  /* font-weight: 800; */
+  /* border: none; */
+  /* color: #4f4f4f; */
+  /* background-color: #fff; */
 `;

@@ -9,6 +9,7 @@ import Sub from "./Sub";
 import SubForm from "./SubForm";
 import Map from "./Map";
 import Rank from "./Rank";
+import OCRForm from "./OCRForm";
 import Forbidden from "./403";
 import NotFound from "./404";
 import MethodNotAllowed from "./405";
@@ -26,12 +27,6 @@ export default function Router() {
         {isBrowser ? (
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<p>pc 환경입니다</p>} />
-            </Routes>
-          </BrowserRouter>
-        ) : (
-          <BrowserRouter>
-            <Routes>
               <Route path="/" element={<Kira />} />
               <Route path="/tuto" element={<Tuto />} />
               <Route path="/main" element={<Main />} />
@@ -39,11 +34,18 @@ export default function Router() {
               <Route path="/subform" element={<SubForm />} />
               <Route path="/map" element={<Map />} />
               <Route path="/rank" element={<Rank />} />
+              <Route path="/ocrform" element={<OCRForm />} />
               <Route path="/403" element={<Forbidden />} />
               <Route path="/*" element={<NotFound />} />
               <Route path="/405" element={<MethodNotAllowed />} />
               <Route path="/500" element={<InternalServerError />} />
               <Route path="/unkown" element={<UnKnown />} />
+            </Routes>
+          </BrowserRouter>
+        ) : (
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<p>pc 환경입니다</p>} />
             </Routes>
           </BrowserRouter>
         )}

@@ -9,7 +9,7 @@ export const Wrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #6930b7;
+  background-color: #9961e6;
   @media (min-width: 500px) {
     display: none;
   }

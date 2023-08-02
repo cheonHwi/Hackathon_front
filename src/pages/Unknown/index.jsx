@@ -25,7 +25,7 @@ export default function Index() {
           <Message>당신 혹은 개발자가 사고쳤어요</Message>
           <Message>로고를 눌러 처음으로 돌아가세요</Message>
         </div>
-        <Navigation error={"error"} />
+        <Navigation check={"check"} />
       </Container>
     </Wrap>
   );

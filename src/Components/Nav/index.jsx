@@ -28,7 +28,7 @@ export default function Index(prop) {
       </div>
       <NHome
         src={
-          prop.error
+          prop.check
             ? Home
             : currentUrl === "/main" && currentUrl
             ? Home

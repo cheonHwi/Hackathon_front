@@ -16,7 +16,7 @@ export default function index() {
           <Message>페이지를 찾을 수 없어요</Message>
           <Message>로고를 눌러 처음으로 돌아가세요</Message>
         </div>
-        <Navigation error={"error"} />
+        <Navigation check={"check"} />
       </Container>
     </Wrap>
   );
