@@ -13,6 +13,7 @@ import {
 import Arrow from "../../assets/images/arrow.png";
 import Circle from "../../components/Circle";
 import Navigation from "../../components/Nav";
+import Radar from "../../components/Radar";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Cookies } from "react-cookie";
@@ -48,6 +49,16 @@ export default function Index() {
         });
     },
   });
+
+  const bodyData = 1;
+
+  const garaData = {
+    water: 50,
+    protein: 50,
+    minerals: 50,
+    fat: 50,
+    weight: 50,
+  };
 
   useEffect(() => {
     if (!state) {
@@ -85,7 +96,24 @@ export default function Index() {
             )}
           </LoginContainer>
         </Header>
-        <RadarGrap>radargrap</RadarGrap>
+        <RadarGrap>
+          {!userData.id ? (
+            !bodyData ? (
+              <Radar data={garaData} />
+            ) : (
+              <div className="link">
+                <div className="blur">
+                  <Radar data={garaData} />
+                </div>
+                <p>오늘의 인바디 등록하기</p>
+              </div>
+            )
+          ) : (
+            <div className="blur">
+              <Radar data={garaData} />
+            </div>
+          )}
+        </RadarGrap>
         <div className="secondeContentBox">
           <Diet>diet</Diet>
           <Discharge>discharge</Discharge>

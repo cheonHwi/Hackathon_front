@@ -5,12 +5,13 @@ import Navigation from "../../components/Nav";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { userState } from "../../store/atoms";
 
 const date = new Date();
 
 export default function Index() {
+  const setUserData = useSetRecoilState(userState);
   const userData = useRecoilValue(userState);
   const [isDisabled, setIsDisabled] = useState(false);
 
@@ -39,17 +40,25 @@ export default function Index() {
   ];
 
   const onSubmit = async (data) => {
-    console.log(data);
-    // if (!check.current) {
-    //   check.current = false;
-    //   await axios.post("url").then(res);
-    //   if (sendResult.status === 200) {
-    //     navigate("/main", { state: { value: true } });
-    //   } else {
-    //     setIsDisabled(true);
-    //     check.current = false;
-    //   }
-    // }
+    data["id"] = userData.id;
+    data["name"] = userData.name;
+    if (!check.current) {
+      check.current = false;
+      await axios
+        .post("http://localhost:5000/user/save", data)
+        .then((res) => {
+          if (res.status === 200) {
+            setUserData(res.data);
+            navigate("/main", { state: { value: true } });
+          } else {
+            setIsDisabled(true);
+            check.current = false;
+          }
+        })
+        .catch((error) => {
+          navigate("/500", { state: { value: true } });
+        });
+    }
   };
 
   // useEffect(() => {

@@ -80,9 +80,31 @@ export const RadarGrap = styled.div`
   margin: 60px 0 30px 0;
   width: 100%;
   height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 4vh;
   background-color: #fff;
   text-align: center;
+  > .link {
+    position: relative;
+    > p {
+      padding: 10px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+    > .blur {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      filter: blur(4px);
+      border-radius: 4vh;
+      background-color: #fff;
+    }
+  }
   @media (max-height: 750px) {
     margin: 40px 0 30px 0;
     height: 200px;
