@@ -3,10 +3,13 @@ import { Wrap, Container, Header } from "./style";
 import Circle from "../../components/Circle";
 import Navigation from "../../components/Nav";
 import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../store/atoms";
 
 export default function Index() {
+  const navigate = useNavigate();
+
   const myRef = useRef();
   const userData = useRecoilValue(userState);
 
@@ -20,7 +23,10 @@ export default function Index() {
     axios
       .post("http://localhost:5000/data/upload", formData)
       .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .catch(
+        (err) => console.log(err),
+        navigate("/500", { state: { value: true } })
+      );
   };
 
   return (

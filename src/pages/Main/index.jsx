@@ -28,7 +28,7 @@ export default function Index() {
   const setUserData = useSetRecoilState(userState);
   const userData = useRecoilValue(userState);
   const { state } = useLocation();
-  const [tocken, setToken] = useState();
+  const [tocken] = useState();
   const navigate = useNavigate();
 
   const login = useGoogleLogin({
@@ -47,12 +47,15 @@ export default function Index() {
             setUserData(res.data);
             if (status === 201) navigate("/subform");
           }
+        })
+        .catch(() => {
+          navigate("/500", { state: { value: true } });
         });
     },
   });
 
-  const bodyData = 1;
-  const detailedData = 1;
+  const bodyData = undefined;
+  const detailedData = undefined;
 
   const garaData = {
     water: 50,
@@ -77,16 +80,26 @@ export default function Index() {
             {userData.id ? (
               <>
                 <h1>안녕하세요, {userData.name}님!</h1>
-                <p>인바디 정보를 등록해주세요</p>
-                <LoginLink
-                  onClick={() =>
-                    navigate("/ocrform", {
-                      state: { value: true },
-                    })
-                  }
-                >
-                  상세 정보 등록하기 <LoginArrow src={Arrow} alt="loginArrow" />
-                </LoginLink>
+                {detailedData ? (
+                  <>
+                    {bodyData ? (
+                      <p>신체점수 89점</p>
+                    ) : (
+                      <p>인바디 정보를 등록해주세요</p>
+                    )}
+                  </>
+                ) : (
+                  <LoginLink
+                    onClick={() =>
+                      navigate("/ocrform", {
+                        state: { value: true },
+                      })
+                    }
+                  >
+                    상세 정보 등록하기
+                    <LoginArrow src={Arrow} alt="loginArrow" />
+                  </LoginLink>
+                )}
               </>
             ) : (
               <>
@@ -100,23 +113,31 @@ export default function Index() {
         </Header>
         <RadarGrap>
           {userData.id ? (
-            bodyData ? (
-              <Radar data={garaData} />
-            ) : (
-              <div className="box">
-                <div className="blur">
+            detailedData ? (
+              <>
+                {bodyData ? (
                   <Radar data={garaData} />
-                </div>
-                <span
-                  onClick={() =>
-                    navigate("/ocrform", {
-                      state: { value: true },
-                    })
-                  }
-                >
-                  오늘의 인바디 등록하기
-                  <img src={ArrowBlack} alt="loginArrow" />
-                </span>
+                ) : (
+                  <div className="box">
+                    <div className="blur">
+                      <Radar data={garaData} />
+                    </div>
+                    <span
+                      onClick={() =>
+                        navigate("/ocrform", {
+                          state: { value: true },
+                        })
+                      }
+                    >
+                      오늘의 인바디 등록하기
+                      <img src={ArrowBlack} alt="loginArrow" />
+                    </span>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="blur">
+                <Radar data={garaData} />
               </div>
             )
           ) : (
@@ -128,7 +149,6 @@ export default function Index() {
         <div className="secondeContentBox">
           <Diet>
             <p className="title">식단</p>
-
             {userData.id ? (
               detailedData ? (
                 <>
