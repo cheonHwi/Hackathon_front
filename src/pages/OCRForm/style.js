@@ -92,14 +92,3 @@ export const Label = styled.label`
     height: 120px;
   }
 `;
-
-export const SubmitBtn = styled.input`
-  margin-top: 10px;
-  /* width: 200px; */
-  /* height: 60px; */
-  /* font-size: 24px; */
-  /* font-weight: 800; */
-  /* border: none; */
-  /* color: #4f4f4f; */
-  /* background-color: #fff; */
-`;

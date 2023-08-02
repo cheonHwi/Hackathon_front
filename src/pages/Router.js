@@ -10,6 +10,7 @@ import SubForm from "./SubForm";
 import Map from "./Map";
 import Rank from "./Rank";
 import OCRForm from "./OCRForm";
+import OCRFinish from "./OCRFinish";
 import Forbidden from "./403";
 import NotFound from "./404";
 import MethodNotAllowed from "./405";
@@ -35,6 +36,7 @@ export default function Router() {
               <Route path="/map" element={<Map />} />
               <Route path="/rank" element={<Rank />} />
               <Route path="/ocrform" element={<OCRForm />} />
+              <Route path="/ocrfinish" element={<OCRFinish />} />
               <Route path="/403" element={<Forbidden />} />
               <Route path="/*" element={<NotFound />} />
               <Route path="/405" element={<MethodNotAllowed />} />
