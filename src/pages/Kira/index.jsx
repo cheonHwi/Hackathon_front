@@ -16,7 +16,7 @@ export default function Index() {
     // }, 500);
     //   } else {
     setTimeout(() => {
-      navigate("/tutorial", { state: { value: true } });
+      navigate("/tuto", { state: { value: true } });
     }, 500);
     // }
     // })

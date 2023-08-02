@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Wrap, Container, Header, List, Site, Belong, Map } from "./style";
 import TestMap from "../../assets/images/testMap.png";
-import Circle from "../../Components/Circle";
-import Navigation from "../../Components/Nav";
+import Circle from "../../components/Circle";
+import Navigation from "../../components/Nav";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Index() {
