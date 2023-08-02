@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Wrap, Container, Header } from "./style";
 import Circle from "../../components/Circle";
 import Navigation from "../../components/Nav";
@@ -7,6 +7,7 @@ import { useRecoilValue } from "recoil";
 import { userState } from "../../store/atoms";
 
 export default function Index() {
+  const myRef = useRef();
   const userData = useRecoilValue(userState);
 
   const handleChange = (e) => {
@@ -17,7 +18,7 @@ export default function Index() {
     formData.append("image", file);
 
     axios
-      .post("url", formData)
+      .post("http://localhost:5000/data/upload", formData)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };

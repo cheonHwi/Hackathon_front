@@ -4,8 +4,11 @@ import TestMap from "../../assets/images/testMap.png";
 import Circle from "../../components/Circle";
 import Navigation from "../../components/Nav";
 import { useLocation, useNavigate } from "react-router-dom";
+import { userState } from "../../store/atoms";
+import { useRecoilValue } from "recoil";
 
 export default function Index() {
+  const userData = useRecoilValue(userState);
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -26,7 +29,7 @@ export default function Index() {
       <Container>
         <Header>
           <h1>점수를 비교해보세요!</h1>
-          <h2>김찬옥님에게 추천되는</h2>
+          <h2>{userData.name}님에게 추천되는</h2>
           <h2>운동에 맞게 장소를 추천해드려요</h2>
         </Header>
         <List>

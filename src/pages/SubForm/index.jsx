@@ -5,10 +5,13 @@ import Navigation from "../../components/Nav";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../store/atoms";
 
 const date = new Date();
 
 export default function Index() {
+  const userData = useRecoilValue(userState);
   const [isDisabled, setIsDisabled] = useState(false);
 
   const navigate = useNavigate();
@@ -59,7 +62,7 @@ export default function Index() {
       <Circle />
       <Container>
         <Header>
-          <h1>김찬옥님의 정보를</h1>
+          <h1>{userData.name}님의 정보를</h1>
           <h1>알려주세요</h1>
         </Header>
         <form onSubmit={handleSubmit(onSubmit)}>

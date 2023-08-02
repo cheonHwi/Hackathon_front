@@ -17,10 +17,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import { useGoogleLogin } from "@react-oauth/google";
+import { userState } from "../../store/atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 const cookies = new Cookies();
 
 export default function Index() {
+  const setUserData = useSetRecoilState(userState);
+  const userData = useRecoilValue(userState);
   const { state } = useLocation();
   const [tocken, setToken] = useState();
   const navigate = useNavigate();
@@ -35,8 +39,12 @@ export default function Index() {
           token: access_token,
         })
         .then((res) => {
+          const { status } = res;
           console.log(res.data);
-          setToken(res.data);
+          if (status === 200 || status === 201) {
+            setUserData(res.data);
+            if (status === 201) navigate("/subform");
+          }
         });
     },
   });
@@ -53,19 +61,19 @@ export default function Index() {
       <Container>
         <Header>
           <LoginContainer>
-            {tocken ? (
+            {userData.id ? (
               <>
-                <h1>안녕하세요, {tocken.name}님!</h1>
+                <h1>안녕하세요, {userData.name}님!</h1>
                 <p>인바디 정보를 등록해주세요</p>
-                {/* <LoginLink
+                <LoginLink
                   onClick={() =>
-                    navigate("/subform", {
-                      state: { value: true, name: "홍길동" },
+                    navigate("/ocrform", {
+                      state: { value: true },
                     })
                   }
                 >
                   상세 정보 등록하기 <LoginArrow src={Arrow} alt="loginArrow" />
-                </LoginLink> */}
+                </LoginLink>
               </>
             ) : (
               <>
