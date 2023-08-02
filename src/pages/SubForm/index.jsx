@@ -14,13 +14,9 @@ export default function Index() {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  let check = useRef(false);
+  const { register, handleSubmit } = useForm();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting, errors },
-  } = useForm();
+  let check = useRef(false);
 
   const year = String(date.getFullYear());
   let month = String(date.getMonth() + 1);
@@ -40,16 +36,17 @@ export default function Index() {
   ];
 
   const onSubmit = async (data) => {
-    if (!check.current) {
-      check.current = false;
-      // axios.post("url").then((res))
-      // let sendResult = await sendData({ ...data, date, seondo_name });
-      // if (sendResult.status === 200) {
-      //   navigate("/main", { state: { value: true } });
-      // } else {
-      //   check.current = false;
-      // }
-    }
+    console.log(data);
+    // if (!check.current) {
+    //   check.current = false;
+    //   await axios.post("url").then(res);
+    //   if (sendResult.status === 200) {
+    //     navigate("/main", { state: { value: true } });
+    //   } else {
+    //     setIsDisabled(true);
+    //     check.current = false;
+    //   }
+    // }
   };
 
   // useEffect(() => {
@@ -65,10 +62,10 @@ export default function Index() {
           <h1>김찬옥님의 정보를</h1>
           <h1>알려주세요</h1>
         </Header>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Label>
             <p>소속</p>
-            <select name="unit">
+            <select name="unit" {...register("unit")}>
               <option value="육군">육군</option>
               <option value="해군">해군</option>
               <option value="공군">공군</option>
@@ -77,8 +74,8 @@ export default function Index() {
           </Label>
           <Label>
             <p>부대</p>
-            <select name="belong">
-              <option value="">리스트에 없는 부대</option>
+            <select name="belong" {...register("belong")}>
+              <option value="0">리스트에 없는 부대</option>
               {unit.map((index) => {
                 return (
                   <React.Fragment key={index}>
@@ -90,7 +87,12 @@ export default function Index() {
           </Label>
           <Label>
             <p>입대일</p>
-            <input type="date" defaultValue={defaultDay} />
+            <input
+              type="date"
+              name="date"
+              defaultValue={defaultDay}
+              {...register("date")}
+            />
           </Label>
           <label>
             <SubmitBtn type="submit" value="등록하기" disabled={isDisabled} />

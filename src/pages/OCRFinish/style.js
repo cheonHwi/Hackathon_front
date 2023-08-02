@@ -25,9 +25,9 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   > button {
-    width: 308px;
-    height: 58px;
-
+    margin-bottom: 50px;
+    width: 100%;
+    height: 60px;
     color: #4f4f4f;
     background-color: #fff;
     text-align: center;
@@ -35,6 +35,7 @@ export const Container = styled.div`
     font-weight: 800;
     border: none;
     border-radius: 4vh;
+    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25));
   }
 `;
 

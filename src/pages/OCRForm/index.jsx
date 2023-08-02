@@ -1,17 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Wrap, Container, Header, SubmitBtn } from "./style";
+import React from "react";
+import { Wrap, Container, Header } from "./style";
 import Circle from "../../components/Circle";
 import Navigation from "../../components/Nav";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../store/atoms";
 
-export default function index() {
-  // useEffect(() => {
-  //   if (!state) {
-  //     navigate("/");
-  //   }
-  // }, [navigate, state]);
+export default function Index() {
+  const userData = useRecoilValue(userState);
+
+  const handleChange = (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("id", userData.id);
+    formData.append("file_name", file.name);
+    formData.append("image", file);
+
+    axios
+      .post("url", formData)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <Wrap>
       <Circle />
@@ -21,14 +31,15 @@ export default function index() {
           <h1>선택해주세요</h1>
         </Header>
         <form>
-          <label class="upload-button" for="file-upload">
+          <label className="upload-button" htmlFor="file-upload">
             파일 선택하기
           </label>
           <input
             type="file"
             id="file-upload"
             name="file"
-            accept=".pdf, .doc, .docx, .txt"
+            onChange={handleChange}
+            accept=".png, .jpg"
           ></input>
         </form>
         <Navigation check={"check"} />
