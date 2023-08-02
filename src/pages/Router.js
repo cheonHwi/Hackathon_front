@@ -9,6 +9,11 @@ import Sub from "./Sub";
 import SubForm from "./SubForm";
 import Map from "./Map";
 import Rank from "./Rank";
+import Forbidden from "./403";
+import NotFound from "./404";
+import MethodNotAllowed from "./405";
+import InternalServerError from "./500";
+import UnKnown from "./Unknown";
 
 export default function Router() {
   // env하기
@@ -34,7 +39,11 @@ export default function Router() {
               <Route path="/subform" element={<SubForm />} />
               <Route path="/map" element={<Map />} />
               <Route path="/rank" element={<Rank />} />
-              <Route path="/*" element={<div />} />
+              <Route path="/403" element={<Forbidden />} />
+              <Route path="/*" element={<NotFound />} />
+              <Route path="/405" element={<MethodNotAllowed />} />
+              <Route path="/500" element={<InternalServerError />} />
+              <Route path="/unkown" element={<UnKnown />} />
             </Routes>
           </BrowserRouter>
         )}

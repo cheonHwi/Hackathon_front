@@ -9,8 +9,8 @@ import DisRank from "../../assets/images/navIcon/disRank.png";
 import Rank from "../../assets/images/navIcon/rank.png";
 import { useNavigate } from "react-router-dom";
 
-export default function Index(resTocken) {
-  const [RankRes] = useState(resTocken.rank);
+export default function Index(prop) {
+  const [RankRes] = useState(prop.rank);
   const navigate = useNavigate();
 
   const currentUrl = window.location.pathname;
@@ -27,7 +27,13 @@ export default function Index(resTocken) {
         />
       </div>
       <NHome
-        src={currentUrl === "/main" ? Home : GrayHome}
+        src={
+          prop.error
+            ? Home
+            : currentUrl === "/main" && currentUrl
+            ? Home
+            : GrayHome
+        }
         alt="home"
         onClick={() => {
           navigate("/main", { state: { value: true } });
