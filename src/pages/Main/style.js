@@ -86,13 +86,50 @@ export const RadarGrap = styled.div`
   border-radius: 4vh;
   background-color: #fff;
   text-align: center;
+  > .blur {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: blur(4px);
+    border-radius: 4vh;
+    background-color: #fff;
+  }
+
   > .link {
     position: relative;
-    > p {
-      padding: 10px;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    @media (max-width: 280px) {
+      font-size: 20px;
+    }
+  }
+
+  .box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 4vh;
+    > span {
       position: absolute;
-      bottom: 0;
-      right: 0;
+      bottom: 10px;
+      right: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      > img {
+        width: 14px;
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        right: 5px;
+        width: 95%;
+        height: 2px;
+        background-color: #000;
+      }
     }
     > .blur {
       width: 100%;
@@ -100,33 +137,71 @@ export const RadarGrap = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      filter: blur(4px);
       border-radius: 4vh;
+      filter: blur(4px);
+
       background-color: #fff;
     }
   }
+
   @media (max-height: 750px) {
-    margin: 40px 0 30px 0;
-    height: 200px;
+    margin: 20px 0 10px 0;
+    height: 280px;
   }
   @media (max-width: 280px) {
     margin: 30px 0 15px 0;
-    height: 200px;
+    height: 240px;
   }
 `;
 
 export const Diet = styled.div`
+  margin-bottom: 80px;
+  padding: 20px;
   width: 40%;
-  height: 170px;
+  height: auto;
   border-radius: 4vh;
   background-color: #fff;
   text-align: center;
+  > .title {
+    padding-bottom: 5px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  > .menu {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  > .center {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 100px;
+  }
 `;
 
 export const Discharge = styled.div`
+  margin-bottom: 80px;
+  padding: 20px;
+
   width: 55%;
-  height: 170px;
+  height: auto;
   border-radius: 4vh;
   background-color: #fff;
   text-align: center;
+  > .title {
+    padding-bottom: 5px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  > .day {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 100px;
+  }
+
+  .center {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 100px;
+  }
 `;

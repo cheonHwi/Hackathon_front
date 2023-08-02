@@ -30,7 +30,7 @@ export default function Router() {
       <QueryClientProvider client={queryClient}>
         <GlobalStyle />
         <GoogleOAuthProvider clientId={clientId}>
-          {isBrowser ? (
+          {!isBrowser ? (
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Kira />} />

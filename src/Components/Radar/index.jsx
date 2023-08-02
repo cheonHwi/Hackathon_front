@@ -57,5 +57,14 @@ export default function index(props) {
       },
     },
   };
-  return <Radar data={radarData} options={radarConfig.options} />;
+  return (
+    <Radar
+      data={radarData}
+      options={radarConfig.options}
+      style={{
+        width: "100%",
+        height: "100%",
+      }}
+    />
+  );
 }

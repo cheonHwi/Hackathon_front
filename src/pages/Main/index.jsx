@@ -11,6 +11,7 @@ import {
   Discharge,
 } from "./style";
 import Arrow from "../../assets/images/arrow.png";
+import ArrowBlack from "../../assets/images/arrowblack.png";
 import Circle from "../../components/Circle";
 import Navigation from "../../components/Nav";
 import Radar from "../../components/Radar";
@@ -51,6 +52,7 @@ export default function Index() {
   });
 
   const bodyData = 1;
+  const detailedData = 1;
 
   const garaData = {
     water: 50,
@@ -97,15 +99,24 @@ export default function Index() {
           </LoginContainer>
         </Header>
         <RadarGrap>
-          {!userData.id ? (
-            !bodyData ? (
+          {userData.id ? (
+            bodyData ? (
               <Radar data={garaData} />
             ) : (
-              <div className="link">
+              <div className="box">
                 <div className="blur">
                   <Radar data={garaData} />
                 </div>
-                <p>오늘의 인바디 등록하기</p>
+                <span
+                  onClick={() =>
+                    navigate("/ocrform", {
+                      state: { value: true },
+                    })
+                  }
+                >
+                  오늘의 인바디 등록하기
+                  <img src={ArrowBlack} alt="loginArrow" />
+                </span>
               </div>
             )
           ) : (
@@ -115,8 +126,38 @@ export default function Index() {
           )}
         </RadarGrap>
         <div className="secondeContentBox">
-          <Diet>diet</Diet>
-          <Discharge>discharge</Discharge>
+          <Diet>
+            <p className="title">식단</p>
+
+            {userData.id ? (
+              detailedData ? (
+                <>
+                  <p className="menu">밥</p>
+                  <p className="menu">감자국</p>
+                  <p className="menu">돼지고기부추볶음</p>
+                  <p className="menu">양파겉절이</p>
+                  <p className="menu">배추김치</p>
+                  <p className="menu">우유</p>
+                </>
+              ) : (
+                <p className="center">???</p>
+              )
+            ) : (
+              <p className="center">???</p>
+            )}
+          </Diet>
+          <Discharge>
+            <p className="title">전역일</p>
+            {userData.id ? (
+              detailedData ? (
+                <p className="day">365일 후</p>
+              ) : (
+                <p className="center">???</p>
+              )
+            ) : (
+              <p className="center">???</p>
+            )}
+          </Discharge>
         </div>
         <Navigation rank={tocken} />
       </Container>
