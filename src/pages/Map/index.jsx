@@ -77,27 +77,31 @@ export default function Index() {
           place: MapData1.gym_name,
           lat: MapData1.gym_positiony,
           lng: MapData1.gym_positionx,
+          url: "https://test.shd.one/marker.png",
         },
         {
           place: MapData2.gym_name,
           lat: MapData2.gym_positiony,
           lng: MapData2.gym_positionx,
+          url: "https://test.shd.one/marker.png",
         },
         {
           place: MapData3.gym_name,
           lat: MapData3.gym_positiony,
           lng: MapData3.gym_positionx,
+          url: "https://test.shd.one/marker.png",
         },
         {
           place: "현위치",
           lat: position.coords.latitude,
           lng: position.coords.longitude,
+          url: "https://test.shd.one/marker_loc.png",
         },
       ];
       for (var i = 0; i < gym_loc_list.length; i++) {
         const marker = new naver.maps.Marker({
           icon: {
-            url: "https://test.shd.one/marker.png",
+            url: gym_loc_list[i].url,
             size: new window.naver.maps.Size(33, 33),
             origin: new window.naver.maps.Point(0, 0),
             anchor: new window.naver.maps.Point(11, 35),

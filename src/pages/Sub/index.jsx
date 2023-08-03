@@ -12,41 +12,36 @@ import Navigation from "../../components/Nav";
 import Line from "../../components/Line";
 import Radar from "../../components/SubRadar";
 import { physicalState } from "../../store/atoms";
+import { useLocation, useNavigate } from "react-router-dom";
+import { userState } from "../../store/atoms";
 import { useRecoilValue } from "recoil";
-import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 export default function Index() {
   const [color, setColor] = useState("");
-  const physicalInfo = useRecoilValue(physicalState);
+  const navigate = useNavigate();
   const { state } = useLocation();
 
-  // const navigate = useNavigate();
-  // const { state } = useLocation();
+  useEffect(() => {
+    if (!state) {
+      navigate("/");
+    }
+  }, [navigate, state]);
+  const userInfo = useRecoilValue(userState);
+  const physicalInfo = useRecoilValue(physicalState);
 
-  // useEffect(() => {
-  //   if (!state) {
-  //     navigate("/");
-  //   }
-  // }, [navigate, state]);
+  const [lastBodyData, setLastBodyData] = useState(0);
+  useEffect(() => {
+    axios
+      .post("https://undressing.shd.one/data/getLineData", { id: userInfo.id })
+      .then(({ data }) => {
+        setLastBodyData(data[3].inbody_score);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userInfo.id]);
 
-  const garaData1 = {
-    water: 50,
-    protein: 40,
-    minerals: 30,
-    fat: 10,
-    weight: 60,
-  };
-
-  const garaData2 = {
-    water: 32,
-    protein: 23,
-    minerals: 54,
-    fat: 12,
-    weight: 65,
-  };
-
-  // 이전 인바디 점수 가져오기
-  const lastBodyData = 90;
   useEffect(() => {
     if (state.inbodyScore > lastBodyData) {
       setColor("#42B77F");
@@ -55,7 +50,7 @@ export default function Index() {
     } else if (state.inbodyScore < lastBodyData) {
       setColor("#B7425E");
     }
-  }, [state.inbodyScore]);
+  }, [state.inbodyScore, lastBodyData]);
 
   return (
     <Wrap>
@@ -72,7 +67,6 @@ export default function Index() {
           ) : (
             ""
           )}
-          {/* <h2>골프 등 운동을 추천 드립니다</h2> */}
         </Header>
         <div className="boxContainer">
           <Box>
@@ -93,10 +87,10 @@ export default function Index() {
         </div>
         <div className="contentBox">
           <ContentLine>
-            <Line data={garaData1} />
+            <Line />
           </ContentLine>
           <ContentRadar>
-            <Radar data1={garaData1} data2={garaData2} />
+            <Radar />
           </ContentRadar>
         </div>
         <Navigation check={"check"} />

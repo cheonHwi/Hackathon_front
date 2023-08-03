@@ -11,14 +11,16 @@ import {
 import Circle from "../../components/Circle";
 import Navigation from "../../components/Nav";
 import StackedBar from "../../components/StackedBar";
-import { physicalState, userState } from "../../store/atoms";
+import { physicalState, userState, avgState } from "../../store/atoms";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Index() {
   const userInfo = useRecoilValue(userState);
+  const average = useRecoilValue(avgState);
   const [color, setColor] = useState("");
   const [rankData, setRankData] = useState([
     { name: "-", max_inbody_score: "--" },
@@ -27,31 +29,21 @@ export default function Index() {
   ]);
   const physicalInfo = useRecoilValue(physicalState);
   const navigate = useNavigate();
-  // const { state } = useLocation();
-
-  // useEffect(() => {
-  //   if (!state) {
-  //     navigate("/");
-  //   }
-  // }, [navigate, state]);
+  const { state } = useLocation();
+  useEffect(() => {
+    if (!state) {
+      navigate("/");
+    }
+  }, [navigate, state]);
   useEffect(() => {
     axios
       .get("https://undressing.shd.one/data/rank")
-      .then((res) => {
-        console.log(res.data);
-        setRankData(res.data);
+      .then(({ data }) => {
+        setRankData(data);
       })
-      .catch(
-        (err) => console.log(err)
-        // navigate("/500", {
-        //   state: { value: true },
-        // })
-      );
-    // setRankData
+      .catch((err) => console.log(err));
   }, []);
 
-  // 평균 신체점수에 따라 원 색 변경하는 코드
-  const average = 50;
   useEffect(() => {
     if (physicalInfo.inbody_score > average) {
       setColor("#42B77F");
@@ -60,7 +52,7 @@ export default function Index() {
     } else if (physicalInfo.inbody_score < average) {
       setColor("#B7425E");
     }
-  }, [physicalInfo.inbody_score]);
+  }, [physicalInfo.inbody_score, average]);
 
   return (
     <Wrap>

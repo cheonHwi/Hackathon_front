@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
   RadialLinearScale,
@@ -10,7 +10,9 @@ import {
   CategoryScale,
   LinearScale,
 } from "chart.js";
-
+import axios from "axios";
+import { userState } from "../../store/atoms";
+import { useRecoilValue } from "recoil";
 import { Line } from "react-chartjs-2";
 
 ChartJS.register(
@@ -24,19 +26,28 @@ ChartJS.register(
   Legend
 );
 
-export default function index(props) {
+// api 서버 수정하고 다시 작성하겟음.
+export default function Index() {
+  const userInfo = useRecoilValue(userState);
+  const nameArray = ["-", "-", "-", "-", "-"];
+  const [jsonArray, setJsonArray] = useState([0, 0, 0, 0, 0]);
+  useEffect(() => {
+    axios
+      .post("https://undressing.shd.one/data/getLineData", { id: userInfo.id })
+      .then(({ data }) => {
+        setJsonArray(data.map((obj) => obj.inbody_score));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userInfo.id]);
+
   const lineData = {
-    labels: ["1", "2", "3", "4", "5"],
+    labels: nameArray,
     datasets: [
       {
-        label: " line ",
-        data: [
-          props.data.water,
-          props.data.protein,
-          props.data.minerals,
-          props.data.fat,
-          props.data.weight,
-        ],
+        label: " 신체점수 ",
+        data: jsonArray,
         fill: false,
         borderColor: "rgb(75, 192, 192)",
         tension: 0.5,

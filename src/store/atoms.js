@@ -18,3 +18,8 @@ export const accessTokenState = atom({
   key: "accessTokenState",
   default: "",
 });
+
+export const avgState = atom({
+  key: "avgState",
+  default: 50,
+});

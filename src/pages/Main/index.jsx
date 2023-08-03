@@ -36,12 +36,10 @@ export default function Index() {
   const setIsLogin = useSetRecoilState(loginState);
   const isLogin = useRecoilValue(loginState);
   const setAccessToken = useSetRecoilState(accessTokenState);
-  const accessToken = useRecoilValue(accessTokenState);
   const setPhysicalInfo = useSetRecoilState(physicalState);
   const physicalInfo = useRecoilValue(physicalState);
 
   const { state } = useLocation();
-  const [tocken] = useState();
   const [physicalInfoData, setPhysicalInfoData] = useState({});
   const navigate = useNavigate();
 
@@ -59,7 +57,6 @@ export default function Index() {
           const returndToken = data.data.accessToken;
           setIsLogin(true);
           setAccessToken(returndToken);
-          // console.log(accessToken);
           axios
             .get(
               "https://undressing.shd.one/user/accessTokenRequest",
@@ -92,15 +89,15 @@ export default function Index() {
     },
   });
   useEffect(() => {
-    console.log(userInfo);
-    console.log(physicalInfo);
     try {
       setPhysicalInfoData({
-        water: physicalInfo.body_fat_percentage,
-        protein: physicalInfo.protein,
-        minerals: physicalInfo.minerals,
+        skeletal_muscle_mass: physicalInfo.skeletal_muscle_mass,
+        body_fat_percentage: physicalInfo.body_fat_percentage,
         fat: physicalInfo.body_fat,
-        weight: physicalInfo.skeletal_muscle_mass,
+        weight: physicalInfo.weight,
+        ages: physicalInfo.ages,
+        height: physicalInfo.height,
+        bmi: physicalInfo.bmi,
       });
     } catch (err) {
       console.log(err);
@@ -118,8 +115,6 @@ export default function Index() {
     if (!state) {
       navigate("/");
     }
-    try {
-    } catch (err) {}
   }, [navigate, state]);
 
   return (

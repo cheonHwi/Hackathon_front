@@ -88,7 +88,7 @@ export const Box = styled.div`
 `;
 
 export const ContentLine = styled.div`
-  margin-top: 30px;
+  margin-top: 20px;
   padding: 0 10px;
   width: 100%;
   height: 160px;
@@ -107,7 +107,7 @@ export const ContentLine = styled.div`
 `;
 
 export const ContentRadar = styled.div`
-  margin-top: 30px;
+  margin-top: 20px;
   margin-bottom: 80px;
   width: 100%;
   height: 300px;

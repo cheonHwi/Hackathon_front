@@ -123,17 +123,9 @@ export const RadarGrap = styled.div`
       right: 10px;
       font-size: 14px;
       font-weight: 800;
+      color: #000;
       > img {
         width: 14px;
-      }
-      &::before {
-        content: "";
-        position: absolute;
-        bottom: -5px;
-        right: 5px;
-        width: 95%;
-        height: 2px;
-        background-color: #000;
       }
     }
     > .blur {

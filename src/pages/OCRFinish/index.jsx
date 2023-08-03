@@ -2,16 +2,17 @@ import React from "react";
 import { Wrap, Container, Header } from "./style";
 import Circle from "../../components/Circle";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Index() {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  // useEffect(() => {
-  //   if (!state) {
-  //     navigate("/");
-  //   }
-  // }, [navigate, state]);
+  useEffect(() => {
+    if (!state) {
+      navigate("/");
+    }
+  }, [navigate, state]);
   const success = state.success;
   return (
     <Wrap>

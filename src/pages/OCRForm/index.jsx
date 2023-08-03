@@ -8,6 +8,7 @@ import { useMutation } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { physicalState, userState } from "../../store/atoms";
+import { useEffect } from "react";
 
 export default function Index() {
   const setPhysicalInfo = useSetRecoilState(physicalState);
@@ -37,6 +38,12 @@ export default function Index() {
   };
 
   const { mutate, isSuccess } = useMutation("post", handleChange);
+
+  useEffect(() => {
+    if (!state) {
+      navigate("/");
+    }
+  }, [navigate, state]);
 
   return (
     <Wrap>

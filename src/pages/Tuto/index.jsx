@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Wrap, TitleBox, TextBox, SlideBox, BarBox, BtnBox } from "./style";
 import Graph from "../../assets/images/tgraph.png";
-import Rank from "../../assets/images/rank.png";
-import Data from "../../assets/images/data.png";
-import MapImg from "../../assets/images/maping.png";
-import Thumb from "../../assets/images/thumb.png";
+import Rank from "../../assets/images/rank.PNG";
+import Data from "../../assets/images/data.PNG";
+import MapImg from "../../assets/images/maping.PNG";
+import Thumb from "../../assets/images/thumb.PNG";
 
 export default function Index() {
   const [Array, setArray] = useState(0);

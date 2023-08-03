@@ -3,7 +3,7 @@ import { Wrap, Container, Header, Message } from "./style";
 import Circle from "../../components/Circle";
 import Navigation from "../../components/Nav";
 
-export default function index() {
+export default function Index() {
   return (
     <Wrap>
       <Circle color={"#B74242"} />

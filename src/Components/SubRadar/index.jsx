@@ -11,6 +11,8 @@ import {
   LinearScale,
 } from "chart.js";
 import { Radar } from "react-chartjs-2";
+import { physicalState } from "../../store/atoms";
+import { useRecoilValue } from "recoil";
 
 ChartJS.register(
   RadialLinearScale,
@@ -23,48 +25,30 @@ ChartJS.register(
   Legend
 );
 
-export default function index(props) {
+export default function Index() {
+  const physicalInfo = useRecoilValue(physicalState);
+
   const radarData = {
-    labels: ["체수분", "단백질", "무기질", "체지방", "체중"],
+    labels: ["체중", "골격근량", "체지방량", "체지방률", "BMI"],
     datasets: [
       {
-        label: " 이전 데이터 ",
+        label: " 체성분 데이터 ",
         data: [
-          props.data1.water,
-          props.data1.protein,
-          props.data1.minerals,
-          props.data1.fat,
-          props.data1.weight,
+          physicalInfo.weight,
+          physicalInfo.skeletal_muscle_mass * 3,
+          physicalInfo.body_fat * 4,
+          physicalInfo.body_fat_percentage * 4,
+          physicalInfo.bmi * 4,
         ],
         fill: true,
         backgroundColor: "rgba(255, 99, 132, 0.2)",
         borderColor: "rgb(255, 99, 132)",
-        pointBackgroundColor: "rgb(255, 99, 132)",
-        pointBorderColor: "#fff",
-        pointHoverBackgroundColor: "#fff",
-        pointHoverBorderColor: "rgb(255, 99, 132)",
-      },
-      {
-        label: " 최신 데이터 ",
-        data: [
-          props.data2.water,
-          props.data2.protein,
-          props.data2.minerals,
-          props.data2.fat,
-          props.data2.weight,
-        ],
-        fill: true,
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        borderColor: "rgb(75, 192, 192)",
-        pointBackgroundColor: "rgb(75, 192, 192)",
-        pointBorderColor: "#fff",
-        pointHoverBackgroundColor: "#fff",
-        pointHoverBorderColor: "rgb(75, 192, 192)",
       },
     ],
   };
 
   const options = {
+    events: [],
     scales: {
       r: {
         angleLines: {

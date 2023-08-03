@@ -16,7 +16,13 @@ export default function Index() {
   const [isDisabled, setIsDisabled] = useState(false);
 
   const navigate = useNavigate();
-  // const { state } = useLocation();
+  const { state } = useLocation();
+
+  useEffect(() => {
+    if (!state) {
+      navigate("/");
+    }
+  }, [navigate, state]);
 
   const { register, handleSubmit } = useForm();
 
