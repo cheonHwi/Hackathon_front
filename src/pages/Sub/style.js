@@ -23,6 +23,9 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-between;
   }
+  > .contentBox {
+    margin-bottom: 80px;
+  }
 `;
 
 export const Header = styled.div`
@@ -52,7 +55,7 @@ export const Box = styled.div`
   margin-top: 30px;
   padding: 10px;
   width: 30%;
-  height: 120px;
+  height: 110px;
   border-radius: 3vh;
   background-color: #fff;
   text-align: center;
@@ -84,25 +87,41 @@ export const Box = styled.div`
   }
 `;
 
-export const Content = styled.div`
+export const ContentLine = styled.div`
   margin-top: 30px;
-  padding: 10px 20px;
+  padding: 0 10px;
   width: 100%;
   height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   border-radius: 4vh;
   background-color: #fff;
   > p {
+    padding-left: 10px;
     padding-bottom: 5px;
     font-size: 14px;
     font-weight: 600;
   }
-  @media (max-height: 750px) {
-    margin-top: 20px;
-    height: 150px;
-  }
+`;
 
-  @media (max-height: 670px) {
-    margin-top: 15px;
-    height: 120px;
+export const ContentRadar = styled.div`
+  margin-top: 30px;
+  margin-bottom: 80px;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4vh;
+  background-color: #fff;
+  text-align: center;
+  > p {
+    padding-left: 10px;
+    padding-bottom: 5px;
+    font-size: 14px;
+    font-weight: 600;
   }
 `;

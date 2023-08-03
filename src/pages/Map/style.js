@@ -100,10 +100,10 @@ export const Belong = styled.span`
 `;
 
 export const Map = styled.div`
-  margin-bottom: 100px;
+  margin-bottom: 80px;
   padding: 10px;
   width: 100%;
-  height: auto;
+  height: 330px;
   background-color: #fff;
   border-radius: 4vh;
 
@@ -118,16 +118,7 @@ export const Map = styled.div`
     }
   }
 
-  > img {
-    width: 100%;
+  /* @media (max-height: 750px) {
     height: 250px;
-
-    @media (max-height: 750px) {
-      height: 200px;
-    }
-  }
-
-  @media (max-height: 750px) {
-    height: 250px;
-  }
+  } */
 `;

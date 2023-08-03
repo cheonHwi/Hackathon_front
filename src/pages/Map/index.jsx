@@ -201,7 +201,12 @@ export default function Index() {
           <p>체력단련장</p>
           <div
             ref={mapElement}
-            style={{ minHeight: "95%", borderRadius: "4vh" }}
+            style={{
+              width: "100%",
+              height: "90%",
+              marginBottom: "10px",
+              borderRadius: "4vh",
+            }}
           />
         </Map>
         <Navigation />
