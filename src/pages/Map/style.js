@@ -43,7 +43,7 @@ export const Header = styled.div`
 `;
 
 export const List = styled.div`
-  margin: 30px 0 70px 0;
+  margin: 30px 0 40px 0;
   padding: 15px 20px;
   width: 100%;
   height: 150px;
@@ -93,9 +93,8 @@ export const Belong = styled.span`
 `;
 
 export const Map = styled.div`
-  padding: 10px 20px;
+  padding: 10px;
   width: 100%;
-  height: 300px;
   background-color: #fff;
   border-radius: 4vh;
 
