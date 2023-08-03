@@ -46,21 +46,21 @@ export default function index(props) {
       },
     ],
   };
-  const radarConfig = {
-    type: "radar",
-    data: radarData,
-    options: {
-      elements: {
-        line: {
-          borderWidth: 2,
+  const options = {
+    scales: {
+      r: {
+        angleLines: {
+          display: false,
         },
+        suggestedMin: 0,
+        suggestedMax: 40,
       },
     },
   };
   return (
     <Radar
       data={radarData}
-      options={radarConfig}
+      options={options}
       style={{
         width: "100%",
         height: "90%",

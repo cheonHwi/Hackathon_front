@@ -71,7 +71,7 @@ export default function index(props) {
           display: false,
         },
         suggestedMin: 0,
-        // suggestedMax: 80,
+        suggestedMax: 80,
       },
     },
   };

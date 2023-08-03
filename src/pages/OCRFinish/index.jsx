@@ -15,7 +15,7 @@ export default function Index() {
   const success = state.success;
   return (
     <Wrap>
-      <Circle />
+      <Circle color={state.color} />
       <Container>
         <Header>
           <h1>인바디 기록을</h1>

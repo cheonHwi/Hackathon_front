@@ -50,6 +50,7 @@ export default function index() {
       },
     },
   };
+
   return (
     <Bar
       data={StackerData}

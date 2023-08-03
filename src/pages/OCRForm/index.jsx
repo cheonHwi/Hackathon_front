@@ -6,11 +6,12 @@ import Spinner from "../../components/Spinner";
 import axios from "axios";
 import { useMutation } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { physicalState } from "../../store/atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { physicalState, userState } from "../../store/atoms";
 
 export default function Index() {
   const setPhysicalInfo = useSetRecoilState(physicalState);
+  const userInfo = useRecoilValue(userState);
   const [Loding, setLoding] = useState();
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -18,7 +19,7 @@ export default function Index() {
   const handleChange = (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
-    formData.append("id", state.userid);
+    formData.append("id", userInfo.id);
     formData.append("file_name", file.name);
     formData.append("image", file);
 
@@ -29,7 +30,9 @@ export default function Index() {
         setLoding(res.data);
       })
       .catch((err) =>
-        navigate("/ocrfinish", { state: { value: true, success: "실패" } })
+        navigate("/ocrfinish", {
+          state: { value: true, success: "실패", color: "#B74242" },
+        })
       );
   };
 

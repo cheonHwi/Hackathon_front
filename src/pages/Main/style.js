@@ -25,6 +25,7 @@ export const Container = styled.div`
   justify-content: flex-start;
 
   > .secondeContentBox {
+    margin-top: 30px;
     display: flex;
     justify-content: space-between;
   }
@@ -112,11 +113,14 @@ export const RadarGrap = styled.div`
     position: relative;
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border-radius: 4vh;
     > span {
       position: absolute;
-      /* bottom: 10px; */
-      /* right: 10px; */
+      bottom: -25px;
+      right: 10px;
       font-size: 14px;
       font-weight: 800;
       > img {
