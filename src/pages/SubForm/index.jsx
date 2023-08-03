@@ -48,6 +48,7 @@ export default function Index() {
         .post("https://undressing.shd.one/user/verify", data)
         .then((res) => {
           if (res.status === 200) {
+            console.log(res);
             setUserData(res.data);
             navigate("/main", { state: { value: true } });
           } else {

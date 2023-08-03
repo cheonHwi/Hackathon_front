@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Wrap, TitleBox, TextBox, SlideBox, BarBox, BtnBox } from "./style";
+import Radar from "../../components/Radar";
+import MapImg from "../../assets/images/maping.png";
+import Thumb from "../../assets/images/thumb.png";
+import Rank from "../../assets/images/rank.png";
+import Data from "../../assets/images/data.png";
 
 export default function Index() {
   const [Array, setArray] = useState(0);
@@ -37,17 +42,24 @@ export default function Index() {
     "건강한 몸 위한 노력에 박수를 드리며",
     "이제 GMG를 사용해 보세요",
   ];
+  const garaData = {
+    water: 50,
+    protein: 50,
+    minerals: 50,
+    fat: 50,
+    weight: 50,
+  };
 
   const content = [
-    <div>0</div>,
+    <Radar data={garaData} />,
     <></>,
-    <div>1</div>,
+    <img src={Rank} alt="rank" />,
     <></>,
-    <div>2</div>,
+    <img src={Data} alt="mapImg" />,
     <></>,
-    <div>3</div>,
+    <img src={MapImg} alt="mapImg" />,
     <></>,
-    <div>4</div>,
+    <img src={Thumb} alt="thumb" />,
   ];
 
   return (

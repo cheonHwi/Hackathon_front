@@ -11,7 +11,7 @@ export const Wrap = styled.div`
   overflow-x: hidden;
   background-color: #f4f4f4;
   @media (min-width: 500px) {
-    display: none;
+    width: 400px;
   }
 `;
 
@@ -100,8 +100,10 @@ export const Belong = styled.span`
 `;
 
 export const Map = styled.div`
+  margin-bottom: 100px;
   padding: 10px;
   width: 100%;
+  height: auto;
   background-color: #fff;
   border-radius: 4vh;
 

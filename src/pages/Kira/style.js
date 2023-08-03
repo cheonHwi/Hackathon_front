@@ -10,7 +10,7 @@ export const Wrap = styled.div`
   align-items: center;
   background-color: #f4f4f4;
   @media (min-width: 500px) {
-    display: none;
+    width: 400px;
   }
 `;
 

@@ -24,12 +24,15 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { setCookie } from "../../utils/cookies";
 import jwtDecode from "jwt-decode";
 import { getUser } from "../../utils/localstorage";
+import { getLoginUserData } from "../../utils/data";
 
 const cookies = new Cookies();
 
 export default function Index() {
   const setUserData = useSetRecoilState(userState);
   const userData = useRecoilValue(userState);
+  const [detailedData, setDetailedData] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   const { state } = useLocation();
   const [tocken] = useState();
   const navigate = useNavigate();
@@ -50,13 +53,14 @@ export default function Index() {
           const jwtToken = res.data.data.accessToken;
           // console.log(jwtToken);
           const decodedUserInfo = jwtDecode(jwtToken);
+          console.log(decodedUserInfo);
           localStorage.setItem("userInfo", JSON.stringify(decodedUserInfo));
           setCookie("accessJwtToken", jwtToken);
           if (status === 200 || status === 201) {
-            const loginUserData = getUser();
-            console.log(loginUserData);
-            setUserData(loginUserData);
-            if (status === 201) navigate("/subform");
+            const accessUser = getUser();
+            setIsLogin(accessUser.is_verified);
+            console.log(isLogin);
+            setUserData(accessUser);
           }
         })
         .catch((err) => {
@@ -67,7 +71,6 @@ export default function Index() {
   });
 
   const bodyData = undefined;
-  const detailedData = undefined;
 
   const garaData = {
     water: 50,
@@ -78,14 +81,11 @@ export default function Index() {
   };
 
   useEffect(() => {
-    const loginUserData = getUser();
-    setUserData(loginUserData);
-  }, []);
-
-  useEffect(() => {
     if (!state) {
       navigate("/");
     }
+    try {
+    } catch (err) {}
   }, [navigate, state]);
 
   return (
@@ -94,7 +94,7 @@ export default function Index() {
       <Container>
         <Header>
           <LoginContainer>
-            {userData ? (
+            {isLogin ? (
               <>
                 <h1>안녕하세요, {userData.name}님!</h1>
                 {detailedData ? (
@@ -102,7 +102,14 @@ export default function Index() {
                     {bodyData ? (
                       <p>신체점수 89점</p>
                     ) : (
-                      <p>인바디 정보를 등록해주세요</p>
+                      <LoginLink
+                        onClick={() =>
+                          navigate("/ocrform", { state: { value: true } })
+                        }
+                      >
+                        인바디 정보를 등록해주세요
+                        <LoginArrow src={Arrow} alt="loginArrow" />
+                      </LoginLink>
                     )}
                   </>
                 ) : (
@@ -134,7 +141,7 @@ export default function Index() {
           </LoginContainer>
         </Header>
         <RadarGrap>
-          {userData ? (
+          {isLogin ? (
             detailedData ? (
               <>
                 {bodyData ? (
@@ -171,7 +178,7 @@ export default function Index() {
         <div className="secondeContentBox">
           <Diet>
             <p className="title">식단</p>
-            {userData ? (
+            {isLogin ? (
               detailedData ? (
                 <>
                   <p className="menu">밥</p>
@@ -190,7 +197,7 @@ export default function Index() {
           </Diet>
           <Discharge>
             <p className="title">전역일</p>
-            {userData ? (
+            {isLogin ? (
               detailedData ? (
                 <p className="day">365일 후</p>
               ) : (

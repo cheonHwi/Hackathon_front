@@ -11,7 +11,7 @@ export const Wrap = styled.div`
   align-items: center;
   background-color: #9961e6;
   @media (min-width: 500px) {
-    display: none;
+    width: 400px;
   }
 
   > div {
@@ -39,8 +39,18 @@ export const SlideBox = styled.div`
   margin-bottom: 10px;
   width: 280px;
   height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 4vh;
   background-color: #fff;
+  > img {
+    width: 200px;
+    border-radius: 4vh;
+    @media (max-width: 280px) {
+      width: 180px;
+    }
+  }
 
   @media (max-width: 280px) {
     width: 240px;

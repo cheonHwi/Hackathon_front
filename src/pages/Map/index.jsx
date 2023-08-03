@@ -43,13 +43,11 @@ export default function Index() {
     const { naver } = window;
     if (!mapElement.current || !naver) return;
 
-    const x = document.getElementById("demo");
-
     const getLocation = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
       } else {
-        x.innerHTML = "not supported";
+        window.alert("현재위치를 알수 없습니다.");
       }
     };
     const showPosition = (position) => {
@@ -66,14 +64,105 @@ export default function Index() {
           position: naver.maps.Position.TOP_RIGHT,
         },
       };
+
       const map = new naver.maps.Map(mapElement.current, mapOptions);
-      new naver.maps.Marker({
-        position: location,
-        map,
-      });
+      const gym_loc_list = [
+        {
+          place: MapData1.gym_name,
+          lat: MapData1.gym_positiony,
+          lng: MapData1.gym_positionx,
+        },
+        {
+          place: MapData1.gym_name,
+          lat: MapData2.gym_positiony,
+          lng: MapData2.gym_positionx,
+        },
+        {
+          place: MapData1.gym_name,
+          lat: MapData3.gym_positiony,
+          lng: MapData3.gym_positionx,
+        },
+        {
+          place: "NOW",
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        },
+      ];
+      for (var i = 0; i < gym_loc_list.length; i++) {
+        new naver.maps.Marker({
+          icon: {
+            url: "https://test.shd.one/marker.png",
+            size: new window.naver.maps.Size(33, 33),
+            origin: new window.naver.maps.Point(0, 0),
+            anchor: new window.naver.maps.Point(11, 35),
+          },
+          title: gym_loc_list[i].place,
+          position: new naver.maps.LatLng(
+            gym_loc_list[i].lat,
+            gym_loc_list[i].lng
+          ),
+          map,
+        });
+      }
     };
+    const showDefaultPosition = () => {
+      const defaultPosition = new naver.maps.LatLng(37.5665, 126.978); // 서울시청 좌표 또는 원하는 기본 위치의 좌표
+      const mapOptions = {
+        center: defaultPosition,
+        zoom: 13,
+        zoomControl: true,
+        zoomControlOptions: {
+          position: naver.maps.Position.TOP_RIGHT,
+        },
+      };
+      new naver.maps.Map(mapElement.current, mapOptions);
+      const map = new naver.maps.Map(mapElement.current, mapOptions);
+
+      const gym_loc_list = [
+        {
+          place: MapData1.gym_name,
+          lat: MapData1.gym_positiony,
+          lng: MapData1.gym_positionx,
+        },
+        {
+          place: MapData1.gym_name,
+          lat: MapData2.gym_positiony,
+          lng: MapData2.gym_positionx,
+        },
+        {
+          place: MapData1.gym_name,
+          lat: MapData3.gym_positiony,
+          lng: MapData3.gym_positionx,
+        },
+      ];
+      for (var i = 0; i < 3; i++) {
+        new naver.maps.Marker({
+          icon: {
+            url: "https://test.shd.one/marker.png",
+            size: new window.naver.maps.Size(33, 33),
+            origin: new window.naver.maps.Point(0, 0),
+            anchor: new window.naver.maps.Point(11, 35),
+          },
+          title: gym_loc_list[i].place,
+          position: new naver.maps.LatLng(
+            gym_loc_list[i].lat,
+            gym_loc_list[i].lng
+          ),
+          map,
+        });
+      }
+    };
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        showPosition,
+        showDefaultPosition
+      );
+    } else {
+      showDefaultPosition();
+    }
     getLocation();
-  }, []);
+  }, [MapData1, MapData2, MapData3]);
 
   return (
     <Wrap>
@@ -112,7 +201,7 @@ export default function Index() {
           <p>체력단련장</p>
           <div
             ref={mapElement}
-            style={{ minHeight: "350px", borderRadius: "4vh" }}
+            style={{ minHeight: "95%", borderRadius: "4vh" }}
           />
         </Map>
         <Navigation />

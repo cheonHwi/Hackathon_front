@@ -12,6 +12,9 @@ export const Wrap = styled.div`
   justify-content: space-evenly;
   border-radius: 3vh;
   background-color: #fff;
+  @media (min-width: 500px) {
+    width: 360px;
+  }
 `;
 
 export const NMap = styled.img`

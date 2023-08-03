@@ -1,4 +1,3 @@
-// import { isBrowser } from "react-device-detect";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -31,7 +30,6 @@ export default function Router() {
       <QueryClientProvider client={queryClient}>
         <GlobalStyle />
         <GoogleOAuthProvider clientId={clientId}>
-          {/* {!isBrowser ? ( */}
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Kira />} />
@@ -51,13 +49,6 @@ export default function Router() {
               <Route path="/unknown" element={<UnKnown />} />
             </Routes>
           </BrowserRouter>
-          {/* ) : (
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<p>pc 환경입니다</p>} />
-              </Routes>
-            </BrowserRouter>
-          )} */}
         </GoogleOAuthProvider>
       </QueryClientProvider>
     </RecoilRoot>
