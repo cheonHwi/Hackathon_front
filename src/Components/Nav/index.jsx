@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Wrap, NMap, NHome, NRank } from "./style";
 import Home from "../../assets/images/navIcon/colorHome.png";
 import GrayHome from "../../assets/images/navIcon/grayHome.png";
@@ -8,11 +8,12 @@ import ColorRank from "../../assets/images/navIcon/colorRank.png";
 import DisRank from "../../assets/images/navIcon/disRank.png";
 import Rank from "../../assets/images/navIcon/rank.png";
 import { useNavigate } from "react-router-dom";
-
+import { userState } from "../../store/atoms";
+import { useRecoilValue } from "recoil";
 export default function Index(prop) {
-  const [RankRes] = useState(prop.rank);
   const navigate = useNavigate();
 
+  const userInfo = useRecoilValue(userState);
   const currentUrl = window.location.pathname;
 
   return (
@@ -41,10 +42,10 @@ export default function Index(prop) {
       />
 
       <NRank
-        src={currentUrl === "/rank" ? ColorRank : !RankRes ? DisRank : Rank}
+        src={currentUrl === "/rank" ? ColorRank : !userInfo.id ? DisRank : Rank}
         alt="rank"
         onClick={() => {
-          if (RankRes !== undefined) {
+          if (userInfo.id !== undefined) {
             navigate("/rank", { state: { value: true } });
           }
         }}

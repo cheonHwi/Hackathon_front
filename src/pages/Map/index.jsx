@@ -33,9 +33,6 @@ export default function Index() {
       .catch((error) => console.error(error));
     // 에러시 페이리 라우팅 처리 하기
   }, []);
-  // console.log(MapData1);
-  // console.log(MapData2);
-  // console.log(MapData3);
 
   const mapElement = useRef(null);
 
@@ -50,6 +47,7 @@ export default function Index() {
         window.alert("현재위치를 알수 없습니다.");
       }
     };
+
     const showPosition = (position) => {
       // 지도에 표시할 위치의 위도와 경도 좌표를 파라미터로 넣어줍니다.
       const location = new naver.maps.LatLng(
@@ -66,6 +64,14 @@ export default function Index() {
       };
 
       const map = new naver.maps.Map(mapElement.current, mapOptions);
+      const showAddress = (e) => {
+        const marker = e.overlay;
+        const title = marker.getTitle();
+        const infoWindow = new naver.maps.InfoWindow({
+          content: title,
+        });
+        infoWindow.open(map, marker);
+      };
       const gym_loc_list = [
         {
           place: MapData1.gym_name,
@@ -73,23 +79,23 @@ export default function Index() {
           lng: MapData1.gym_positionx,
         },
         {
-          place: MapData1.gym_name,
+          place: MapData2.gym_name,
           lat: MapData2.gym_positiony,
           lng: MapData2.gym_positionx,
         },
         {
-          place: MapData1.gym_name,
+          place: MapData3.gym_name,
           lat: MapData3.gym_positiony,
           lng: MapData3.gym_positionx,
         },
         {
-          place: "NOW",
+          place: "현위치",
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         },
       ];
       for (var i = 0; i < gym_loc_list.length; i++) {
-        new naver.maps.Marker({
+        const marker = new naver.maps.Marker({
           icon: {
             url: "https://test.shd.one/marker.png",
             size: new window.naver.maps.Size(33, 33),
@@ -103,6 +109,7 @@ export default function Index() {
           ),
           map,
         });
+        naver.maps.Event.addListener(marker, "click", showAddress);
       }
     };
     const showDefaultPosition = () => {
@@ -117,7 +124,14 @@ export default function Index() {
       };
       new naver.maps.Map(mapElement.current, mapOptions);
       const map = new naver.maps.Map(mapElement.current, mapOptions);
-
+      const showAddress = (e) => {
+        const marker = e.overlay;
+        const title = marker.getTitle();
+        const infoWindow = new naver.maps.InfoWindow({
+          content: title,
+        });
+        infoWindow.open(map, marker);
+      };
       const gym_loc_list = [
         {
           place: MapData1.gym_name,
@@ -125,18 +139,18 @@ export default function Index() {
           lng: MapData1.gym_positionx,
         },
         {
-          place: MapData1.gym_name,
+          place: MapData2.gym_name,
           lat: MapData2.gym_positiony,
           lng: MapData2.gym_positionx,
         },
         {
-          place: MapData1.gym_name,
+          place: MapData3.gym_name,
           lat: MapData3.gym_positiony,
           lng: MapData3.gym_positionx,
         },
       ];
       for (var i = 0; i < 3; i++) {
-        new naver.maps.Marker({
+        const marker = new naver.maps.Marker({
           icon: {
             url: "https://test.shd.one/marker.png",
             size: new window.naver.maps.Size(33, 33),
@@ -150,6 +164,7 @@ export default function Index() {
           ),
           map,
         });
+        naver.maps.Event.addListener(marker, "click", showAddress);
       }
     };
 

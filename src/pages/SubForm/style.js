@@ -71,6 +71,7 @@ export const Label = styled.label`
     font-weight: 600;
     text-align: center;
     border: none;
+    outline: none;
   }
   > input {
     position: relative;
@@ -78,6 +79,7 @@ export const Label = styled.label`
     font-weight: 600;
     text-align: center;
     border: none;
+    outline: none;
     &::-webkit-calendar-picker-indicator {
       position: absolute;
       width: 100%;

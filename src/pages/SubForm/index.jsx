@@ -16,7 +16,7 @@ export default function Index() {
   const [isDisabled, setIsDisabled] = useState(false);
 
   const navigate = useNavigate();
-  const { state } = useLocation();
+  // const { state } = useLocation();
 
   const { register, handleSubmit } = useForm();
 
@@ -45,10 +45,9 @@ export default function Index() {
     if (!check.current) {
       check.current = false;
       await axios
-        .post("https://undressing.shd.one/user/verify", data)
+        .post("https://undressing.shd.one/user/addAdditionalData/", data)
         .then((res) => {
-          if (res.status === 200) {
-            console.log(res);
+          if (res.status === 201) {
             setUserData(res.data);
             navigate("/main", { state: { value: true } });
           } else {
@@ -78,7 +77,7 @@ export default function Index() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Label>
             <p>소속</p>
-            <select name="unit" {...register("unit")}>
+            <select name="affiliation" {...register("affiliation")}>
               <option value="육군">육군</option>
               <option value="해군">해군</option>
               <option value="공군">공군</option>
@@ -87,7 +86,7 @@ export default function Index() {
           </Label>
           <Label>
             <p>부대</p>
-            <select name="belong" {...register("belong")}>
+            <select name="army_unit" {...register("army_unit")}>
               <option value="0">리스트에 없는 부대</option>
               {unit.map((index) => {
                 return (
@@ -102,9 +101,9 @@ export default function Index() {
             <p>입대일</p>
             <input
               type="date"
-              name="date"
+              name="enlistment_date"
               defaultValue={defaultDay}
-              {...register("date")}
+              {...register("enlistment_date")}
             />
           </Label>
           <label>

@@ -19,59 +19,93 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import { useGoogleLogin } from "@react-oauth/google";
-import { userState } from "../../store/atoms";
+import disCharge from "../../components/Discharge";
+import {
+  accessTokenState,
+  loginState,
+  physicalState,
+  userState,
+} from "../../store/atoms";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { setCookie } from "../../utils/cookies";
-import jwtDecode from "jwt-decode";
-import { getUser } from "../../utils/localstorage";
-import { getLoginUserData } from "../../utils/data";
 
 const cookies = new Cookies();
 
 export default function Index() {
-  const setUserData = useSetRecoilState(userState);
-  const userData = useRecoilValue(userState);
-  const [detailedData, setDetailedData] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  const setUserInfo = useSetRecoilState(userState);
+  const userInfo = useRecoilValue(userState);
+  const setIsLogin = useSetRecoilState(loginState);
+  const isLogin = useRecoilValue(loginState);
+  const setAccessToken = useSetRecoilState(accessTokenState);
+  const accessToken = useRecoilValue(accessTokenState);
+  const setPhysicalInfo = useSetRecoilState(physicalState);
+  const physicalInfo = useRecoilValue(physicalState);
+
   const { state } = useLocation();
   const [tocken] = useState();
+  const [physicalInfoData, setPhysicalInfoData] = useState({});
   const navigate = useNavigate();
 
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => {
-      console.log(tokenResponse);
       const { access_token } = tokenResponse;
       cookies.set("token", tokenResponse.access_token);
       axios
         .post(
           "https://undressing.shd.one/user/login",
-          { token: access_token }
-          // { withCredentials: true }
+          { token: access_token },
+          { withCredentials: true }
         )
-        .then((res) => {
-          const { status } = res;
-          const jwtToken = res.data.data.accessToken;
-          // console.log(jwtToken);
-          const decodedUserInfo = jwtDecode(jwtToken);
-          console.log(decodedUserInfo);
-          localStorage.setItem("userInfo", JSON.stringify(decodedUserInfo));
-          setCookie("accessJwtToken", jwtToken);
-          if (status === 200 || status === 201) {
-            const accessUser = getUser();
-            setIsLogin(accessUser.is_verified);
-            console.log(isLogin);
-            setUserData(accessUser);
-          }
+        .then(({ data }) => {
+          const returndToken = data.data.accessToken;
+          setIsLogin(true);
+          setAccessToken(returndToken);
+          // console.log(accessToken);
+          axios
+            .get(
+              "https://undressing.shd.one/user/accessTokenRequest",
+              { headers: { Authorization: `Bearer ${returndToken}` } },
+              {
+                withCredentials: true,
+              }
+            )
+            .then(({ data }) => {
+              setUserInfo(data);
+
+              axios
+                .post("https://undressing.shd.one/data/getCurrentInfo", {
+                  id: data.id,
+                })
+                .then(({ data }) => {
+                  setPhysicalInfo(data);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
           console.log(err);
-          navigate("/500", { state: { value: true } });
         });
     },
   });
-
-  const bodyData = undefined;
-
+  useEffect(() => {
+    console.log(userInfo);
+    console.log(physicalInfo);
+    try {
+      setPhysicalInfoData({
+        water: physicalInfo.body_fat_percentage,
+        protein: physicalInfo.protein,
+        minerals: physicalInfo.minerals,
+        fat: physicalInfo.body_fat,
+        weight: physicalInfo.skeletal_muscle_mass,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, [userInfo, physicalInfo]);
   const garaData = {
     water: 50,
     protein: 50,
@@ -94,17 +128,31 @@ export default function Index() {
       <Container>
         <Header>
           <LoginContainer>
-            {isLogin ? (
+            {isLogin && userInfo ? (
               <>
-                <h1>안녕하세요, {userData.name}님!</h1>
-                {detailedData ? (
+                <h1>안녕하세요, {userInfo.name}님!</h1>
+                {userInfo.is_verified ? (
                   <>
-                    {bodyData ? (
-                      <p>신체점수 89점</p>
+                    {physicalInfo ? (
+                      <LoginLink
+                        onClick={() =>
+                          navigate("/sub", {
+                            state: {
+                              value: true,
+                              inbodyScore: physicalInfo.inbody_score,
+                            },
+                          })
+                        }
+                      >
+                        신체점수 {physicalInfo.inbody_score}점
+                        <LoginArrow src={Arrow} alt="loginArrow" />
+                      </LoginLink>
                     ) : (
                       <LoginLink
                         onClick={() =>
-                          navigate("/ocrform", { state: { value: true } })
+                          navigate("/ocrform", {
+                            state: { value: true, userid: userInfo.id },
+                          })
                         }
                       >
                         인바디 정보를 등록해주세요
@@ -141,11 +189,23 @@ export default function Index() {
           </LoginContainer>
         </Header>
         <RadarGrap>
-          {isLogin ? (
-            detailedData ? (
+          {isLogin && userInfo ? (
+            userInfo.is_verified ? (
               <>
-                {bodyData ? (
-                  <Radar data={garaData} />
+                {physicalInfo ? (
+                  <div className="box">
+                    <Radar data={physicalInfoData} />
+                    <span
+                      onClick={() =>
+                        navigate("/ocrform", {
+                          state: { value: true },
+                        })
+                      }
+                    >
+                      오늘의 인바디 등록하기
+                      <img src={ArrowBlack} alt="loginArrow" />
+                    </span>
+                  </div>
                 ) : (
                   <div className="box">
                     <div className="blur">
@@ -179,7 +239,7 @@ export default function Index() {
           <Diet>
             <p className="title">식단</p>
             {isLogin ? (
-              detailedData ? (
+              userInfo.is_verified ? (
                 <>
                   <p className="menu">밥</p>
                   <p className="menu">감자국</p>
@@ -198,8 +258,10 @@ export default function Index() {
           <Discharge>
             <p className="title">전역일</p>
             {isLogin ? (
-              detailedData ? (
-                <p className="day">365일 후</p>
+              userInfo.is_verified ? (
+                <p className="day">
+                  {disCharge(userInfo.affiliation, userInfo.enlistment_date)}
+                </p>
               ) : (
                 <p className="center">???</p>
               )
@@ -208,7 +270,7 @@ export default function Index() {
             )}
           </Discharge>
         </div>
-        <Navigation rank={tocken} />
+        <Navigation />
       </Container>
     </Wrap>
   );

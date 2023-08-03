@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 export default function Index() {
   const navigate = useNavigate();
+
+  const tocken = localStorage.getItem("userInfo");
+  console.log(tocken);
   useEffect(() => {
     // axios
     //   .post("url")

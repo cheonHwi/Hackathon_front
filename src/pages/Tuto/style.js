@@ -87,7 +87,7 @@ export const BtnBox = styled.div`
     height: 30px;
     border: none;
     border-radius: 4vw;
-    color: #999;
+    color: #000;
     font-size: 15px;
     background-color: #fff;
   }

@@ -1,33 +1,33 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Wrap, Container, Header } from "./style";
 import Circle from "../../components/Circle";
 import Navigation from "../../components/Nav";
 import Spinner from "../../components/Spinner";
 import axios from "axios";
-import { useQuery, useMutation } from "react-query";
+import { useMutation } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { userState } from "../../store/atoms";
-import { getUser } from "../../utils/localstorage";
+import { useSetRecoilState } from "recoil";
+import { physicalState } from "../../store/atoms";
 
 export default function Index() {
+  const setPhysicalInfo = useSetRecoilState(physicalState);
   const [Loding, setLoding] = useState();
   const navigate = useNavigate();
-
-  const myRef = useRef();
-  const userData = getUser();
+  const { state } = useLocation();
 
   const handleChange = (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
-    console.log(`${typeof userData.id} : ${userData.id}`);
-    formData.append("id", userData.id);
+    formData.append("id", state.userid);
     formData.append("file_name", file.name);
     formData.append("image", file);
 
     axios
       .post("https://undressing.shd.one/data/upload", formData)
-      .then((res) => setLoding(res.data))
+      .then((res) => {
+        setPhysicalInfo(res.data);
+        setLoding(res.data);
+      })
       .catch((err) =>
         navigate("/ocrfinish", { state: { value: true, success: "실패" } })
       );

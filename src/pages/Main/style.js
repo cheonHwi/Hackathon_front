@@ -57,6 +57,7 @@ export const LoginContainer = styled.div`
 export const LoginLink = styled.a`
   font-size: 22px;
   font-weight: 800;
+  cursor: pointer;
   color: #fff;
   position: relative;
   &::before {
@@ -114,8 +115,8 @@ export const RadarGrap = styled.div`
     border-radius: 4vh;
     > span {
       position: absolute;
-      bottom: 10px;
-      right: 10px;
+      /* bottom: 10px; */
+      /* right: 10px; */
       font-size: 14px;
       font-weight: 800;
       > img {

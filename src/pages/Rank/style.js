@@ -45,26 +45,97 @@ export const Header = styled.div`
   }
 `;
 
-export const ConentBox = styled.div`
+export const StackedBarContainer = styled.div`
   margin-top: 30px;
   padding: 10px 20px;
   width: 100%;
-  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   border-radius: 4vh;
   background-color: #fff;
+`;
 
+export const RankContainer = styled.div`
+  margin-top: 30px;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  border-radius: 4vh;
+  background-color: #fff;
   > p {
-    padding-bottom: 5px;
-    font-size: 14px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+    font-size: 15px;
     font-weight: 600;
+    line-height: normal;
   }
-  @media (max-height: 750px) {
-    margin-top: 15px;
-    height: 120px;
+`;
+
+export const RankBox = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    > div {
+      margin-top: 10px;
+      > p {
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: normal;
+      }
+    }
+    > p {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: normal;
+    }
+    > .rank {
+      width: 50px;
+      padding-bottom: 10px;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 0px;
+        left: 50%;
+        transform: translate(-50%);
+        width: 100%;
+        height: 5px;
+        background-color: #f00;
+      }
+    }
+    .one {
+      &::before {
+        background-color: #e2cc0c;
+      }
+    }
+    .two {
+      &::before {
+        background-color: #bfbebe;
+      }
+    }
+    .three {
+      &::before {
+        background-color: #a94d19;
+      }
+    }
   }
 `;
 
 export const Message = styled.p`
+  padding-bottom: 80px;
   padding-top: 30px;
   text-align: center;
   font-size: 15px;
