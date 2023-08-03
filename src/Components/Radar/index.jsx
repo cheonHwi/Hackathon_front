@@ -47,6 +47,7 @@ export default function index(props) {
     ],
   };
   const options = {
+    legend: { display: false },
     scales: {
       r: {
         angleLines: {

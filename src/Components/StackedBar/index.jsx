@@ -9,6 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import axios from "axios";
 
 ChartJS.register(
   CategoryScale,
@@ -20,6 +21,16 @@ ChartJS.register(
 );
 
 export default function index() {
+  const dataSet = axios
+    .get("https://undressing.shd.one/data/variation")
+    .then(({ data }) => {
+      console.log(data);
+      return data;
+    })
+    .catch((err) => {
+      console.err(err);
+    });
+
   const StackerData = {
     labels: ["1", "2", "3", "4", "5"],
     datasets: [

@@ -11,15 +11,20 @@ import {
 import Circle from "../../components/Circle";
 import Navigation from "../../components/Nav";
 import StackedBar from "../../components/StackedBar";
-import { physicalState } from "../../store/atoms";
+import { physicalState, userState } from "../../store/atoms";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Index() {
+  const userInfo = useRecoilValue(userState);
   const [color, setColor] = useState("");
-  const [rankData, setRankData] = useState();
+  const [rankData, setRankData] = useState([
+    { name: "-", max_inbody_score: "--" },
+    { name: "-", max_inbody_score: "--" },
+    { name: "-", max_inbody_score: "--" },
+  ]);
   const physicalInfo = useRecoilValue(physicalState);
   const navigate = useNavigate();
   // const { state } = useLocation();
@@ -32,7 +37,10 @@ export default function Index() {
   useEffect(() => {
     axios
       .get("https://undressing.shd.one/data/rank")
-      .then((res) => console.log(res.data))
+      .then((res) => {
+        console.log(res.data);
+        setRankData(res.data);
+      })
       .catch(
         (err) => console.log(err)
         // navigate("/500", {
@@ -61,11 +69,11 @@ export default function Index() {
         <Header>
           <h1>점수를 비교해보세요!</h1>
           {physicalInfo.inbody_score > average ? (
-            <h2>홍길동님은 상위에 해당됩니다</h2>
+            <h2>{userInfo.name}님은 상위에 해당됩니다</h2>
           ) : physicalInfo.inbody_score === average ? (
-            <h2>홍길동님은 평균에 해당됩니다</h2>
+            <h2>{userInfo.name}님은 평균에 해당됩니다</h2>
           ) : physicalInfo.inbody_score < average ? (
-            <h2>홍길동님은 하위에 해당됩니다</h2>
+            <h2>{userInfo.name}님은 하위에 해당됩니다</h2>
           ) : (
             ""
           )}
