@@ -39,7 +39,7 @@ export const LoginContainer = styled.div`
   > h1 {
     padding-bottom: 5px;
     color: #fff;
-    font-size: 25px;
+    font-size: 28px;
     @media (max-width: 280px) {
       font-size: 20px;
     }
@@ -55,7 +55,7 @@ export const LoginContainer = styled.div`
 `;
 
 export const LoginLink = styled.a`
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 800;
   color: #fff;
   position: relative;

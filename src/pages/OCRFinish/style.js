@@ -35,7 +35,6 @@ export const Container = styled.div`
     font-weight: 800;
     border: none;
     border-radius: 4vh;
-    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25));
   }
 `;
 
@@ -48,6 +47,6 @@ export const Header = styled.div`
   > h1 {
     padding-bottom: 5px;
     color: #fff;
-    font-size: 25px;
+    font-size: 28px;
   }
 `;

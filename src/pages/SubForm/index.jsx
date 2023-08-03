@@ -45,7 +45,7 @@ export default function Index() {
     if (!check.current) {
       check.current = false;
       await axios
-        .post("http://localhost:5000/user/save", data)
+        .post("https://undressing.shd.one/user/verify", data)
         .then((res) => {
           if (res.status === 200) {
             setUserData(res.data);

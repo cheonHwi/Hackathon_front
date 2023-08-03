@@ -21,6 +21,9 @@ import { Cookies } from "react-cookie";
 import { useGoogleLogin } from "@react-oauth/google";
 import { userState } from "../../store/atoms";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { setCookie } from "../../utils/cookies";
+import jwtDecode from "jwt-decode";
+import { getUser } from "../../utils/localstorage";
 
 const cookies = new Cookies();
 
@@ -37,18 +40,27 @@ export default function Index() {
       const { access_token } = tokenResponse;
       cookies.set("token", tokenResponse.access_token);
       axios
-        .post("https://soldiers.shd.one/user/getUserData", {
-          token: access_token,
-        })
+        .post(
+          "https://undressing.shd.one/user/login",
+          { token: access_token }
+          // { withCredentials: true }
+        )
         .then((res) => {
           const { status } = res;
-          console.log(res.data);
+          const jwtToken = res.data.data.accessToken;
+          // console.log(jwtToken);
+          const decodedUserInfo = jwtDecode(jwtToken);
+          localStorage.setItem("userInfo", JSON.stringify(decodedUserInfo));
+          setCookie("accessJwtToken", jwtToken);
           if (status === 200 || status === 201) {
-            setUserData(res.data);
+            const loginUserData = getUser();
+            console.log(loginUserData);
+            setUserData(loginUserData);
             if (status === 201) navigate("/subform");
           }
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log(err);
           navigate("/500", { state: { value: true } });
         });
     },
@@ -66,6 +78,11 @@ export default function Index() {
   };
 
   useEffect(() => {
+    const loginUserData = getUser();
+    setUserData(loginUserData);
+  }, []);
+
+  useEffect(() => {
     if (!state) {
       navigate("/");
     }
@@ -77,7 +94,7 @@ export default function Index() {
       <Container>
         <Header>
           <LoginContainer>
-            {userData.id ? (
+            {userData ? (
               <>
                 <h1>안녕하세요, {userData.name}님!</h1>
                 {detailedData ? (
@@ -91,7 +108,7 @@ export default function Index() {
                 ) : (
                   <LoginLink
                     onClick={() =>
-                      navigate("/ocrform", {
+                      navigate("/subform", {
                         state: { value: true },
                       })
                     }
@@ -104,7 +121,12 @@ export default function Index() {
             ) : (
               <>
                 <h1>로그인 되어있지 않아요!</h1>
-                <LoginLink onClick={() => login()}>
+                <LoginLink
+                  onClick={() => {
+                    localStorage.clear();
+                    login();
+                  }}
+                >
                   로그인 <LoginArrow src={Arrow} alt="loginArrow" />
                 </LoginLink>
               </>
@@ -112,7 +134,7 @@ export default function Index() {
           </LoginContainer>
         </Header>
         <RadarGrap>
-          {userData.id ? (
+          {userData ? (
             detailedData ? (
               <>
                 {bodyData ? (
@@ -149,7 +171,7 @@ export default function Index() {
         <div className="secondeContentBox">
           <Diet>
             <p className="title">식단</p>
-            {userData.id ? (
+            {userData ? (
               detailedData ? (
                 <>
                   <p className="menu">밥</p>
@@ -168,7 +190,7 @@ export default function Index() {
           </Diet>
           <Discharge>
             <p className="title">전역일</p>
-            {userData.id ? (
+            {userData ? (
               detailedData ? (
                 <p className="day">365일 후</p>
               ) : (

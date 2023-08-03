@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         color: inherit;
         letter-spacing: -1px;
+        font-family: 'Pretendard';
     }
 
     img{

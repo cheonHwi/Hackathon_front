@@ -38,6 +38,18 @@ export default function Index() {
     "이제 GMG를 사용해 보세요",
   ];
 
+  const content = [
+    <div>0</div>,
+    <></>,
+    <div>1</div>,
+    <></>,
+    <div>2</div>,
+    <></>,
+    <div>3</div>,
+    <></>,
+    <div>4</div>,
+  ];
+
   return (
     <Wrap>
       <div>
@@ -51,7 +63,7 @@ export default function Index() {
         </TextBox>
       </div>
       <div>
-        <SlideBox>{Array}</SlideBox>
+        <SlideBox>{content[Array]}</SlideBox>
         <BarBox>
           <div className={Array === 0 ? "white" : "gray"}></div>
           <div className={Array === 2 ? "white" : "gray"}></div>

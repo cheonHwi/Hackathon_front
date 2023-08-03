@@ -61,7 +61,7 @@ export const Header = styled.div`
   > h1 {
     padding-bottom: 5px;
     color: #fff;
-    font-size: 25px;
+    font-size: 28px;
   }
 `;
 

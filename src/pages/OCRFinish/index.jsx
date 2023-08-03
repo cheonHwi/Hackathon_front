@@ -5,20 +5,21 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Index() {
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   // useEffect(() => {
   //   if (!state) {
   //     navigate("/");
   //   }
   // }, [navigate, state]);
-  const props = "완료";
+  const success = state.success;
   return (
     <Wrap>
       <Circle />
       <Container>
         <Header>
           <h1>인바디 기록을</h1>
-          <h1>{props}하였습니다</h1>
+          <h1>{success}하였습니다</h1>
         </Header>
         <button
           onClick={() => {

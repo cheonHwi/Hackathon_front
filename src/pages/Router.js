@@ -1,4 +1,4 @@
-import { isBrowser } from "react-device-detect";
+// import { isBrowser } from "react-device-detect";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -18,6 +18,7 @@ import NotFound from "./404";
 import MethodNotAllowed from "./405";
 import InternalServerError from "./500";
 import UnKnown from "./Unknown";
+import Logout from "./Logout";
 
 const queryClient = new QueryClient();
 
@@ -30,32 +31,33 @@ export default function Router() {
       <QueryClientProvider client={queryClient}>
         <GlobalStyle />
         <GoogleOAuthProvider clientId={clientId}>
-          {isBrowser ? (
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Kira />} />
-                <Route path="/tuto" element={<Tuto />} />
-                <Route path="/main" element={<Main />} />
-                <Route path="/sub" element={<Sub />} />
-                <Route path="/subform" element={<SubForm />} />
-                <Route path="/map" element={<Map />} />
-                <Route path="/rank" element={<Rank />} />
-                <Route path="/ocrform" element={<OCRForm />} />
-                <Route path="/ocrfinish" element={<OCRFinish />} />
-                <Route path="/403" element={<Forbidden />} />
-                <Route path="/*" element={<NotFound />} />
-                <Route path="/405" element={<MethodNotAllowed />} />
-                <Route path="/500" element={<InternalServerError />} />
-                <Route path="/unkown" element={<UnKnown />} />
-              </Routes>
-            </BrowserRouter>
-          ) : (
+          {/* {!isBrowser ? ( */}
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Kira />} />
+              <Route path="/tuto" element={<Tuto />} />
+              <Route path="/main" element={<Main />} />
+              <Route path="/sub" element={<Sub />} />
+              <Route path="/subform" element={<SubForm />} />
+              <Route path="/map" element={<Map />} />
+              <Route path="/rank" element={<Rank />} />
+              <Route path="/ocrform" element={<OCRForm />} />
+              <Route path="/ocrfinish" element={<OCRFinish />} />
+              <Route path="/logout" element={<Logout />} />
+              <Route path="/403" element={<Forbidden />} />
+              <Route path="/*" element={<NotFound />} />
+              <Route path="/405" element={<MethodNotAllowed />} />
+              <Route path="/500" element={<InternalServerError />} />
+              <Route path="/unknown" element={<UnKnown />} />
+            </Routes>
+          </BrowserRouter>
+          {/* ) : (
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<p>pc 환경입니다</p>} />
               </Routes>
             </BrowserRouter>
-          )}
+          )} */}
         </GoogleOAuthProvider>
       </QueryClientProvider>
     </RecoilRoot>

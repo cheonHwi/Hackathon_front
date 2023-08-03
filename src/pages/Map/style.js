@@ -34,7 +34,7 @@ export const Header = styled.div`
   > h1 {
     padding-bottom: 5px;
     color: #fff;
-    font-size: 25px;
+    font-size: 28px;
   }
   > h2 {
     color: #fff;
@@ -51,7 +51,7 @@ export const List = styled.div`
   border-radius: 4vh;
 
   > p {
-    padding-bottom: 15px;
+    padding-bottom: 20px;
     font-size: 15px;
     font-weight: 600;
 
@@ -89,7 +89,14 @@ export const Site = styled.span`
 `;
 
 export const Belong = styled.span`
-  color: ${(props) => props.color};
+  color: ${(props) =>
+    props.color === "육군"
+      ? "#258C4E"
+      : props.color === "해군"
+      ? "#CE1126"
+      : props.color === "공군"
+      ? "#3289B9"
+      : "#000"};
 `;
 
 export const Map = styled.div`
@@ -99,7 +106,8 @@ export const Map = styled.div`
   border-radius: 4vh;
 
   > p {
-    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-bottom: 10px;
     font-size: 15px;
     font-weight: 600;
 
